@@ -1,0 +1,49 @@
+version: '3'
+
+services:
+  discovery:
+    image: discovery-service
+    networks:
+      - all
+    ports:
+      - 8761:8761
+  user-service:
+    image: user-service
+    ports:
+      - 8081:8080
+    networks:
+      - all
+    environment:
+      DATABASE_HOST: user-db
+      DISCOVERY_SERVER: discovery
+    depends_on:
+      - user-db
+  product-service:
+    image: product-service
+    ports:
+      - 8082:8080
+    networks:
+      - all
+    environment:
+      DATABASE_HOST: product-db
+      DISCOVERY_SERVER: discovery
+    depends_on:
+      - product-db
+  user-db:
+    image: postgres
+    restart: always
+    networks:
+      - all
+    environment:
+      POSTGRES_PASSWORD: postgres
+  product-db:
+    image: postgres
+    restart: always
+    networks:
+      - all
+    environment:
+      POSTGRES_PASSWORD: postgres
+
+networks:
+  all:
+    driver: bridge
