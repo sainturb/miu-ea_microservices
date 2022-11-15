@@ -18,7 +18,16 @@ spring:
     init:
       mode: always
 
+  zipkin:
+    base-url: http://${ZIPKIN_SERVER}:9411
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://${DISCOVERY_SERVER}:8761/eureka/
+
+
+#feign:
+#  client:
+#    config:
+#      user-service: http://user-service:8080

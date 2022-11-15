@@ -1,6 +1,7 @@
 package miu.edu.controller;
 
 import lombok.RequiredArgsConstructor;
+import miu.edu.client.UserClient;
 import miu.edu.dto.ProductDTO;
 import miu.edu.model.Category;
 import miu.edu.service.ProductServiceImpl;
@@ -17,8 +18,11 @@ public class ProductController {
 
     private final ProductServiceImpl service;
 
+    private final UserClient userClient;
+
     @GetMapping()
     public List<ProductDTO> getAll() {
+        List<Object> users = userClient.getUsers();
         return service.findAll();
     }
 

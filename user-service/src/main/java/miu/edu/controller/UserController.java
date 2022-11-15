@@ -1,6 +1,7 @@
 package miu.edu.controller;
 
 import lombok.RequiredArgsConstructor;
+import miu.edu.client.ProductClient;
 import miu.edu.dto.UserDTO;
 import miu.edu.service.UserServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -16,9 +17,16 @@ public class UserController {
 
     private final UserServiceImpl service;
 
+    private final ProductClient productClient;
+
     @GetMapping()
     public List<UserDTO> getAll() {
         return service.findAll();
+    }
+
+    @GetMapping("products/{id}")
+    public Object getProductId(@PathVariable Long id) {
+        return productClient.getProduct(id);
     }
 
     @GetMapping("/{id}")

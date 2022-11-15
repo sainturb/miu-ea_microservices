@@ -1,6 +1,23 @@
 version: '3'
 
 services:
+  config:
+    image: config-service
+    networks:
+      - all
+    ports:
+      - 8090:8090
+    environment:
+      ZIPKIN_SERVER: zipkin
+  gateway:
+    image: gateway-service
+    networks:
+      - all
+    ports:
+      - 8080:8080
+    environment:
+      DISCOVERY_SERVER: discovery
+      ZIPKIN_SERVER: zipkin
   discovery:
     image: discovery-service
     networks:
@@ -16,8 +33,11 @@ services:
     environment:
       DATABASE_HOST: user-db
       DISCOVERY_SERVER: discovery
+      ZIPKIN_SERVER: zipkin
+      CONFIG_SERVER: config
     depends_on:
       - user-db
+      - config
   product-service:
     image: product-service
     ports:
@@ -27,6 +47,7 @@ services:
     environment:
       DATABASE_HOST: product-db
       DISCOVERY_SERVER: discovery
+      ZIPKIN_SERVER: zipkin
     depends_on:
       - product-db
   user-db:
@@ -43,6 +64,12 @@ services:
       - all
     environment:
       POSTGRES_PASSWORD: postgres
+  zipkin:
+    image: openzipkin/zipkin
+    networks:
+      - all
+    ports:
+      - 9411:9411
 
 networks:
   all:
