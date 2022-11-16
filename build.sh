@@ -1,4 +1,4 @@
-mvn clean package
+mvn package
 
 docker build -t product-service -f ./product-service/Dockerfile .
 

@@ -24,6 +24,18 @@ docker-compose up -d
 ### Zipkin server
 <a href="http://localhost:9411/" target="_blank">&rarr; Zipkin server</a>
 ### Gateway &rarr; User service &rarr; Product service
-<a href="http://localhost:8080/user-service/users/products/1" target="_blank">&rarr; Product by Id from User service</a>
+<a href="http://localhost/user-service/users/products/1" target="_blank">&rarr; Product by Id from User service</a>
 ### Gateway &rarr; Product service &rarr; User service
-<a href="http://localhost:8080/product-service/products" target="_blank">&rarr; Products that has User client communication</a>
+<a href="http://localhost/product-service/products" target="_blank">&rarr; Products that has User client communication</a>
+
+
+## Phase 3
+### Keycloak server
+
+User service is protected by Keycloak here
+
+<a href="http://localhost:8080/auth" target="_blank">&rarr; Keycloak server</a>
+```
+admin username: admin
+admin password: Pa55w0rd
+```

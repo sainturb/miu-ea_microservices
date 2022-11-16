@@ -1,75 +1,63 @@
-version: '3'
+version: '3.8'
 
 services:
   config:
     image: config-service
-    networks:
-      - all
-    ports:
-      - 8090:8090
-    environment:
-      ZIPKIN_SERVER: zipkin
+    extends:
+      file: docker-compose-base.yml
+      service: config
   gateway:
     image: gateway-service
-    networks:
-      - all
-    ports:
-      - 8080:8080
-    environment:
-      DISCOVERY_SERVER: discovery
-      ZIPKIN_SERVER: zipkin
+    extends:
+      file: docker-compose-base.yml
+      service: gateway
   discovery:
     image: discovery-service
-    networks:
-      - all
-    ports:
-      - 8761:8761
+    extends:
+      file: docker-compose-base.yml
+      service: discovery
   user-service:
     image: user-service
-    ports:
-      - 8081:8080
-    networks:
-      - all
-    environment:
-      DATABASE_HOST: user-db
-      DISCOVERY_SERVER: discovery
-      ZIPKIN_SERVER: zipkin
-      CONFIG_SERVER: config
+    extends:
+      file: docker-compose-base.yml
+      service: user-service
     depends_on:
       - user-db
       - config
   product-service:
     image: product-service
-    ports:
-      - 8082:8080
-    networks:
-      - all
-    environment:
-      DATABASE_HOST: product-db
-      DISCOVERY_SERVER: discovery
-      ZIPKIN_SERVER: zipkin
+    extends:
+      file: docker-compose-base.yml
+      service: product-service
     depends_on:
       - product-db
   user-db:
     image: postgres
-    restart: always
-    networks:
-      - all
-    environment:
-      POSTGRES_PASSWORD: postgres
+    extends:
+      file: docker-compose-base.yml
+      service: user-db
   product-db:
     image: postgres
-    restart: always
-    networks:
-      - all
-    environment:
-      POSTGRES_PASSWORD: postgres
+    extends:
+      file: docker-compose-base.yml
+      service: product-db
+  keycloak-db:
+    image: postgres
+    extends:
+      file: docker-compose-base.yml
+      service: keycloak-db
+  keycloak:
+    image: wizzn/keycloak:14
+    extends:
+      file: docker-compose-base.yml
+      service: keycloak
+    depends_on:
+      - keycloak-db
   zipkin:
     image: openzipkin/zipkin
-    networks:
-      - all
-    ports:
-      - 9411:9411
+    extends:
+      file: docker-compose-base.yml
+      service: zipkin
 
 networks:
   all:
