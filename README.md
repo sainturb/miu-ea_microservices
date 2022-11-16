@@ -28,7 +28,6 @@ docker-compose up -d
 ### Gateway &rarr; Product service &rarr; User service
 <a href="http://localhost/product-service/products" target="_blank">&rarr; Products that has User client communication</a>
 
-
 ## Phase 3
 
 User service is protected by Keycloak here
@@ -42,3 +41,10 @@ User service is protected by Keycloak here
 admin username: admin
 admin password: Pa55w0rd
 ```
+
+## Phase 4
+
+### RabbitMQ
+<a href="http://localhost:5673" target="_blank">&rarr; RabbitMQ</a>
+### Produce message
+<a href="http://localhost:8083/api/users" target="_blank">&rarr; Producer API</a>

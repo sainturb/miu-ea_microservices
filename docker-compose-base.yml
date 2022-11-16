@@ -13,14 +13,12 @@ services:
     ports:
       - 80:8080
   discovery:
-    image: discovery-service
     extends:
       file: docker-compose-common.yml
       service: common
     ports:
       - 8761:8761
   user-service:
-    image: user-service
     ports:
       - 8081:8080
     extends:
@@ -31,7 +29,6 @@ services:
       KEYCLOAK_SERVER: keycloak
       KEYCLOAK_PORT: 8080
   product-service:
-    image: product-service
     ports:
       - 8082:8080
     extends:
@@ -40,14 +37,12 @@ services:
     environment:
       DATABASE_HOST: product-db
   user-db:
-    image: postgres
     extends:
       file: docker-compose-common.yml
       service: common
     environment:
       POSTGRES_PASSWORD: postgres
   product-db:
-    image: postgres
     extends:
       file: docker-compose-common.yml
       service: common
@@ -78,9 +73,21 @@ services:
       - 8080:8080
       - 9990:9990
   zipkin:
-    image: openzipkin/zipkin
     extends:
       file: docker-compose-common.yml
       service: common
     ports:
       - 9411:9411
+  rabbitmq:
+    extends:
+      file: docker-compose-common.yml
+      service: common
+    ports:
+      - 5672:5672
+      - 5673:15672
+  rabbitmq-service:
+    extends:
+      file: docker-compose-common.yml
+      service: common
+    ports:
+      - 8083:8083

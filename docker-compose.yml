@@ -58,6 +58,17 @@ services:
     extends:
       file: docker-compose-base.yml
       service: zipkin
+  rabbitmq:
+    platform: linux/amd64
+    image: rabbitmq:3-management
+    extends:
+      file: docker-compose-base.yml
+      service: rabbitmq
+  rabbitmq-service:
+    image: rabbitmq-producer-consumer
+    extends:
+      file: docker-compose-base.yml
+      service: rabbitmq-service
 
 networks:
   all:
