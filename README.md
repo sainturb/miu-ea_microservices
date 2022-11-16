@@ -30,11 +30,14 @@ docker-compose up -d
 
 
 ## Phase 3
-### Keycloak server
 
 User service is protected by Keycloak here
 
+### Keycloak server
 <a href="http://localhost:8080/auth" target="_blank">&rarr; Keycloak server</a>
+
+### User service
+<a href="http://localhost:8081/api/users" target="_blank">&rarr; Users API</a>
 ```
 admin username: admin
 admin password: Pa55w0rd
